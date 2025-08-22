@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace _07_TempoDownload
 {
@@ -7,37 +6,41 @@ namespace _07_TempoDownload
     {
         static void Main(string[] args)
         {
-            double tamanho;
-            double velocidade;
+            double tamanho = 0;
+            double velocidade = 0;
+            double tempoSegundos, tempoMinutos;
+            
+            // Loop infinito
+            while (true) 
+            {
+                // Operadores Lógicos
+                // && -> AND (E lógico)
+                // || -> OR (OU lógico)
+                Console.WriteLine("Informe o tamanho do arquivo (MB): ");
+                if (double.TryParse(Console.ReadLine(), out tamanho) && tamanho > 0)
+                    // sai do loop
+                    break;
+                else
+                    Console.WriteLine("Valor inválido! Digite um número maior que zero.");
+            }
 
-            tamanho = ObterValor("Informe o tamanho do arquivo (MB): ");
-            velocidade = ObterValor("Informe a velocidade da internet (Mbps): ");
-
-            double tempoSegundos = (tamanho * 8) / velocidade;
-            double tempoMinutos = tempoSegundos / 60;
-
-            Console.WriteLine($"Tempo aproximado de download: {tempoMinutos.ToString("F2", CultureInfo.InvariantCulture)} minutos");
-
-            Console.ReadKey();
-        }
- 
-        static double ObterValor(string mensagem)
-        {
-            double valor;
             while (true)
             {
-                Console.Write(mensagem);
-                string entrada = Console.ReadLine();
+                Console.WriteLine("Informe a velocidade da internet (Mbps): ");
 
-                if (double.TryParse(entrada, NumberStyles.Any, CultureInfo.InvariantCulture, out valor) && valor > 0)
+                if (double.TryParse(Console.ReadLine(), out velocidade) && velocidade > 0)
                 {
-                    return valor;
+                    break;
                 }
                 else
                 {
                     Console.WriteLine("Valor inválido! Digite um número maior que zero.");
                 }
-            }
+            //Calculo do tempo
+            tempoSegundos = (tamanho = 8) / velocidade;
+            tempoSegundos /= tempoSegundos / 60;
+            // Saída formatada
+            Console.WriteLine($"Tempo aproximado de download: {tempoMinutos:F2} minutos");
         }
     }
 }
