@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _09_Calendario
 {
@@ -46,6 +42,16 @@ namespace _09_Calendario
                     }
                 }
             }
+
+            Console.WriteLine($"\nCaléndario de " +
+                $"{primeiroDiaMes.ToString("MMMM")} de {ano}");
+
+            Console.WriteLine("DOM\tSEG\tTER\tQUA\tQUI\tSEX\tSAB");
+
+            //impressão do caléndario
+
+            //Espera o usuário digitar qualquer tecla
+            Console.ReadKey();
         }
     }
 }
