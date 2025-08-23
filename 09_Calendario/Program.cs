@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace _09_Calendario
 {
@@ -6,36 +7,38 @@ namespace _09_Calendario
     {
         static void Main(string[] args)
         {
-            Console.Write("Digite o mês (1.12): ");
-            int mes = int.Parse(Console.ReadLine() );
+            //gera o primeiro dia do mês e ano informado pelo usuário
+
+            Console.Write("Digite o mês (1-12): ");
+            int mes = int.Parse(Console.ReadLine());
 
             Console.Write("Digite o ano: ");
-            int ano = int.Parse(Console.ReadLine() );
+            int ano = int.Parse(Console.ReadLine());
 
-            //Descobre a quantidade de dias de um mês
+            //descobre a quantidade de dias de um mês
             int diasDoMes = DateTime.DaysInMonth(ano, mes);
 
-            //Descobre o dia da semana do primeiro dia do mês
+            //descobre o dia da semana do primeiro dia do mês
             // 0 = Domingo - 6 Sábado
-            //Gera o primeiro dia do mês e ano informado pelo usuário
+
             DateTime primeiroDiaMes = new DateTime(ano, mes, 1);
             int diaSemanaInicio = (int)primeiroDiaMes.DayOfWeek;
 
-            //Matriz de 6 semanas e 7 dias
-            int[,] calendario = new int[6,7];
+            //matriz de 6 semanas e 7 dias
+            int[,] calendario = new int[6, 7];
 
             int dia = 1;
 
-            //Preenche a matriz com os dias do mês
+            //preenche a matriz com os dias do mês
             for (int semana = 0; semana < 6; semana++)
             {
-                for (int diaSemana = 0; diaSemana < 7; diaSemana++) 
+                for (int diaSemana = 0; diaSemana < 7; diaSemana++)
                 {
-                    if(diaSemana == 0 && diaSemana < diaSemanaInicio)
+                    if ((semana == 0 && diaSemana < diaSemanaInicio) || dia > diasDoMes)
                     {
                         calendario[semana, diaSemana] = 0;
                     }
-                    else if(dia <= diasDoMes)
+                    else
                     {
                         calendario[semana, diaSemana] = dia;
                         dia++;
@@ -43,14 +46,28 @@ namespace _09_Calendario
                 }
             }
 
-            Console.WriteLine($"\nCaléndario de " +
+            Console.WriteLine($"\nCalendário de " +
                 $"{primeiroDiaMes.ToString("MMMM")} de {ano}");
 
             Console.WriteLine("DOM\tSEG\tTER\tQUA\tQUI\tSEX\tSAB");
 
-            //impressão do caléndario
+            //impressão do calendário
+            for (int semana = 0; semana < 6; semana++)
+            {
+                for (int diaSemana = 0; diaSemana < 7; diaSemana++)
+                {
+                    if (calendario[semana, diaSemana] != 0)
+                    {
+                        Console.Write(calendario[semana, diaSemana].ToString("D2") + "\t");
+                    }
+                    else
+                    {
+                        Console.Write("\t");
+                    }
+                }
+                Console.WriteLine();
+            }
 
-            //Espera o usuário digitar qualquer tecla
             Console.ReadKey();
         }
     }
